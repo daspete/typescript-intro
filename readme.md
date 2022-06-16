@@ -177,7 +177,7 @@ const collections: (Post|Article)[] = [
     anotherContent
 ]
 
-const getCollectionContents = (_collections: (Post|Article)[]) => {
+const getCollectionContents = (_collections: (Post|Article)[]): string[] => {
     const contents: string[] = []
 
     _collections.forEach(collection => {
@@ -215,4 +215,73 @@ Erstellt nun ein Array aus mehreren PostTypes und Pagecomponents
 
 Und dann erstellt eine Funktion, die aus allen Items des Arrays den "createdBy" User extrahiert und zurückgibt.
 
-## Generische Klassen
+## Interfaces
+
+Eine Alternative zu Types sind Interfaces. Interfaces haben den Vorteil, dass sie extended werden können von anderen Interfaces. Man kann sie außerdem mitten im Code erweitern. Interfaces können außerdem für Klassen Implementierungen genutzt werden.
+
+Bei der Schreibweise von Interfaces hat man sich allgemein darauf geeinigt, dass sie mit einem großen I beginnen.
+
+Angenommen man hat einen Typ "IShape" und man will nun zwei Untertypes definieren mit den Namen "ISquareShare" und "IRectangleShape", so kann man das recht einfach mit Interfaces machen.
+
+```ts
+interface IShape {
+    area(): number
+}
+
+interface ISquareShape extends IShape {
+    x: number
+}
+
+interface IRectangleShape extends ISquareShape {
+    y: number
+}
+
+const rectangle: IRectangleShape = {
+    x: 1,
+    y: 2,
+    area() {
+        return this.x * this.y
+    }
+}
+
+class Rectangle implements IRectangleShape {
+    x: number
+    y: number
+
+    constructor(x: number, y: number) {
+        this.x = x
+        this.y = y
+    }
+
+    area() {
+        return this.x * this.y
+    }
+}
+
+const instancedRectangle: Rectangle = new Rectangle(1, 2)
+console.log(instancedRectangle.area())
+```
+
+Man könnte auch einfach das Interface "IGenericShape" immer wieder erweitern:
+
+```ts
+interface IGenericShape {
+    x: number
+}
+
+interface IGenericShape {
+    y: number
+}
+
+interface IGenericShape {
+    area(): number
+}
+
+const myRectangle: IGenericShape = {
+    x: 1,
+    y: 2,
+    area() {
+        return this.x * this.y
+    },
+}
+```

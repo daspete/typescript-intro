@@ -42,7 +42,7 @@ const items: (PostType|Pagecomponent)[] = [
     pagecomponent
 ]
 
-const getItemsCreatedByUsers = (_items: (PostType|Pagecomponent)[]) => {
+const getItemsCreatedByUsers = (_items: (PostType|Pagecomponent)[]): User[] => {
     const users: User[] = []
 
     _items.forEach(item => {
