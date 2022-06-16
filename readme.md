@@ -126,3 +126,93 @@ Erstellt danach ein neues "databaseConfig" Objekt von diesem Typ.
 
 Das ist auch schon die ganze "Magic" der simplen Types.
 
+
+## Mehrdeutige Types
+
+Manchmal kann es vorkommen, dass es bei einem Objekt nicht ganz klar ist, welchen Typ es nun hat. Zum Beispiel, wenn man einen Typ hat mit dem Namen "Post" und einen Typ hat mit dem Namen "Article" und das mit einer Funktion abhandeln will.
+
+So kann man einem Objekt auch mehrere Typen zuweisen.
+
+```ts
+
+type Post = {
+    postName: string
+    title: string
+    content: string
+}
+
+type Article = {
+    articleName: string
+    title: string
+    content: string
+    tag: string[]
+}
+
+const currentContent: Post|Article = {
+    articleName: 'test',
+    title: 'test',
+    content: 'test',
+    tag: ['test']
+}
+
+const anotherContent: Post|Article = {
+    postName: 'test',
+    title: 'test',
+    content: 'test'
+}
+
+const collections: (Post|Article)[] = [
+    {
+        postName: 'post1',
+        title: 'post1',
+        content: 'post1'
+    },
+    {
+        articleName: 'article1',
+        title: 'article1',
+        content: 'article1',
+        tag: ['tag1', 'tag2']
+    },
+    currentContent,
+    anotherContent
+]
+
+const getCollectionContents = (_collections: (Post|Article)[]) => {
+    const contents: string[] = []
+
+    _collections.forEach(collection => {
+        contents.push(collection.content)
+    })
+
+    return contents
+}
+
+console.log(getCollectionContents(collections))
+```
+
+### Aufgabe
+
+Erstellt zwei Types mit dem Namen "PostType" und "Pagecomponent". Diese Zwei Types haben folgende Felder:
+
+PostType
+
+- id
+- title
+- createdBy
+  - id
+  - name
+- pagecomponents[]
+
+
+Pagecomponent
+
+- id
+- createdBy
+  - id
+  - name
+
+Erstellt nun ein Array aus mehreren PostTypes und Pagecomponents
+
+Und dann erstellt eine Funktion, die aus allen Items des Arrays den "createdBy" User extrahiert und zurückgibt.
+
+## Generische Klassen

@@ -10,10 +10,18 @@ type DatabaseConfig = {
     auth?: DatabaseUserConfig
 }
 
-const databaseConfig: DatabaseConfig = {
+type MongodbDatabaseConfig ={
+    host: string
+    port: number
+    collection: string
+    auth?: DatabaseUserConfig
+}
+
+const databaseConfig: DatabaseConfig|MongodbDatabaseConfig = {
     host: 'localhost',
     port: 5432,
-    dbName: 'test',
+    collection: 'test',
+    // dbName: 'test',
     auth: {
         username: 'test',
         password: 'test'
