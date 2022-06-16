@@ -285,3 +285,37 @@ const myRectangle: IGenericShape = {
     },
 }
 ```
+
+## Readonly modifier
+
+Manchmal will man einzelne Felder eines Types nur lesbar machen nach der ersten Zuweisung.
+
+Das kann man einfach machen, indem man "readonly" zu der Felddefinition schreibt.
+
+```ts
+interface User {
+    readonly id: number
+    name: string
+}
+
+interface Post {
+    readonly id: number
+    name: string
+    content: string
+    readonly createdBy: User
+}
+
+const user: User = {
+    id: 1,
+    name: 'Bob'
+}
+
+const post: Post = {
+    id: 1,
+    name: 'testpage',
+    content: 'testcontent',
+    createdBy: user
+}
+
+post.id = 2 // wirft einen Fehler in der Laufzeit, weil id ein readonly Feld ist
+```
