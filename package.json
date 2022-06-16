@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "export NODE_PATH=./ && nodemon index.ts"
+    "dev": "export NODE_PATH=./ && nodemon"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",

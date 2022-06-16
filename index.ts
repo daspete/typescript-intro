@@ -1,4 +1,8 @@
-import TestModule from "module/TestModule";
+import Zoo from 'ts/Zoo'
+import Animal from 'ts/Animal'
 
-let testModule:TestModule = new TestModule("Hello World");
-console.log(testModule.name)
+const zoo: Zoo = new Zoo()
+const animal: Animal = new Animal('lion')
+zoo.addAnimal(animal)
+
+console.log(zoo)
