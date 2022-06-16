@@ -319,3 +319,62 @@ const post: Post = {
 
 post.id = 2 // wirft einen Fehler in der Laufzeit, weil id ein readonly Feld ist
 ```
+
+## Generische Types & Interfaces
+
+Wenn man nun Funktionen baut, die mehrere Arten von Inputs verarbeiten sollen, kann man entweder lauter Interfaces bauen, die alle möglichen Input Types abdecken, oder aber man baut generische Types.
+
+Ein Beispiel wäre bei einem CMS die InputFields. Die können entweder Strings, Numbers, Arrays, Booleans, etc. sein. Diese Types kann man entweder so definieren:
+
+```ts
+interface InputNumber {
+    content: number
+}
+
+interface InputString {
+    content: string
+}
+
+interface InputBoolean {
+    content: boolean
+}
+```
+
+Will man nun eine einzige Funktion bauen, die einen Input überträgt, muss man nun Funktionsüberladungen schreiben, so wie hier:
+
+```ts
+function setContent(input: InputNumber, content: number): void;
+function setContent(input: InputString, content: string): void;
+function setContent(input: InputBoolean, content: boolean): void;
+function setContent(input: { content: any }, content: any) {
+    input.content = content
+}
+```
+
+Das kann man natürlich machen, das funktioniert auch, nur müsste man hier jedesmal, wenn man einen neuen Type hinzufügt, auch eine Methodenüberladung für den neuen Type hinzufügen, und man hat auch den Nachteil, dass innerhalb der setContent Funktion der content vom Type "any" ist... was jegliche Code Completion verhindert.
+
+Dafür wurden generische Typen entwickelt.
+
+So kann man ein einziges Interface definieren mit einem generischen Type, und kann eine einzige Funktion definieren, die ebenfalls einen generischen Type verwendet.
+
+```ts
+interface Input<GenericType> {
+    content: GenericType
+}
+
+function setContent<GenericType>(input: Input<GenericType>, content: GenericType): void {
+    input.content = content
+}
+```
+
+Nun kann man einfach neue Inputs definieren, indem man den benötigten Type mitgibt:
+
+```ts
+const numberInput: Input<number> = { content: 4 }
+setContent<number>(numberInput, 5)
+
+const stringInput: Input<string> = { content: 'test' }
+setContent<string>(stringInput, 'test2')
+
+console.log(numberInput, stringInput)
+```
