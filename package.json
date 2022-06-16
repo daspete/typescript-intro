@@ -1,0 +1,14 @@
+{
+  "name": "typescript-intro",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "export NODE_PATH=./ && nodemon index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "nodemon": "^2.0.16",
+    "typescript": "^4.7.3"
+  }
+}
