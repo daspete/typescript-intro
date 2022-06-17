@@ -1,4 +1,4 @@
-# typescript into
+# Typescript intro
 
 Jahrelang wurde JavaScript als einfache Scriptsprache verwendet, die einfach im Browser bestimmte Interaktionen ermöglichen sollte. Das hat auch lange Zeit gut funktioniert, da die Menge an Code relativ überschaubar war. Mit der Zeit hat man in der Webentwicklung jedoch gemerkt, dass man viel mehr mit JavaScript machen kann, als einfache Events auszulösen. Man hat entdeckt, dass man JavaScript auch auf dem Server laufen lassen kann, und dass das ganz gut funktioniert. Deswegen wurde Node.js kreiert. Nun kann man sich jedoch vorstellen, dass die Menge an Code im Backend sehr schnell anwachsen kann. Und je mehr Menschen an einem Projekt arbeiten, umso mehr Abstimmungsarbeit muss man machen, damit auch jedem klar ist, was welcher Bereich des Projektes macht, oder mit welchen Variablentypen man arbeiten muss, damit ein Endpunkt funktioniert. Damit das dann nicht ausartet in einer Stunde coden und 5 Stunden Recherche, welche Datentypen man nun mitschicken muss, ist man auf die Idee gekommen, JavaScript um Types zu erweitern. 
 
