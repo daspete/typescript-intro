@@ -1,8 +1,8 @@
 # Typescript intro
 
-Jahrelang wurde JavaScript als einfache Scriptsprache verwendet, die einfach im Browser bestimmte Interaktionen ermöglichen sollte. Das hat auch lange Zeit gut funktioniert, da die Menge an Code relativ überschaubar war. Mit der Zeit hat man in der Webentwicklung jedoch gemerkt, dass man viel mehr mit JavaScript machen kann, als einfache Events auszulösen. Man hat entdeckt, dass man JavaScript auch auf dem Server laufen lassen kann, und dass das ganz gut funktioniert. Deswegen wurde Node.js kreiert. Nun kann man sich jedoch vorstellen, dass die Menge an Code im Backend sehr schnell anwachsen kann. Und je mehr Menschen an einem Projekt arbeiten, umso mehr Abstimmungsarbeit muss man machen, damit auch jedem klar ist, was welcher Bereich des Projektes macht, oder mit welchen Variablentypen man arbeiten muss, damit ein Endpunkt funktioniert. Damit das dann nicht ausartet in einer Stunde coden und 5 Stunden Recherche, welche Datentypen man nun mitschicken muss, ist man auf die Idee gekommen, JavaScript um Types zu erweitern. 
+Jahrelang wurde JavaScript als einfache Scriptsprache verwendet, die einfach im Browser bestimmte Interaktionen ermöglichen sollte. Das hat auch lange Zeit gut funktioniert, da die Menge an Code relativ überschaubar war. Mit der Zeit hat man in der Webentwicklung jedoch gemerkt, dass man viel mehr mit JavaScript machen kann, als einfache Events auszulösen oder den DOM zu manipulieren. Man hat entdeckt, dass man JavaScript auch auf  in anderen Bereichen der Entwicklung einsetzen kann, zum Beispiel als Webserver, als Komplettlösung für einen Webstack, oder auch in der Robotik, etc... Deswegen wurde Node.js kreiert. Nun kann man sich jedoch vorstellen, dass die Menge an Code durch die Größe der Projekte sehr schnell anwachsen kann. Dadurch entsteht dann mit der Zeit sehr viel Recherche- und Abstimmungsarbeit, je mehr Menschen an einem Projekt arbeiten, damit auch jedem klar ist, was welcher Bereich des Projektes macht, oder mit welchen Variablentypen man arbeiten muss, damit ein Endpunkt funktioniert. Damit das dann nicht ausartet in einer Stunde coden und 5 Stunden Recherche, welche Datentypen man nun mitschicken muss, ist man auf die Idee gekommen, JavaScript um Types zu erweitern. 
 
-So wurde also TypeScript ins Leben gerufen. Wenn nun die Developer eine IDE haben, die TypeScript lesen kann, hat jeder einzelne sofort im Blickfeld, welche Types in einer Funktion (oder Klasse) gebraucht werden, man kann nicht mehr aus einem vordefinierten Schema ausbrechen und man erleichtert somit das Leben des ganzen Developer Teams, da viel weniger Abstimmung passieren muss, und man auch nicht auf die Suche gehen muss nach den richtigen Variablenwerten.
+So wurde also TypeScript ins Leben gerufen. Wenn nun die Developer eine IDE haben, die TypeScript lesen kann, hat jeder durch die Code Completion sofort im Blickfeld, welche Types in einer Funktion (oder Klasse) gebraucht werden, man kann nicht mehr aus einem vordefinierten Schema ausbrechen und man erleichtert somit das Leben des ganzen Developer Teams, da viel weniger Abstimmung passieren muss, und man auch nicht auf die Suche gehen muss nach den richtigen Variablentypen.
 
 Wir werden heute nur die Grundlagen kurz überfliegen, ein paar Beispiele ansehen und auch selbst erstellen. 
 
@@ -129,14 +129,14 @@ Das ist auch schon die ganze "Magic" der simplen Types.
 
 ## Mehrdeutige Types
 
-Manchmal kann es vorkommen, dass es bei einem Objekt nicht ganz klar ist, welchen Typ es nun hat. Zum Beispiel, wenn man einen Typ hat mit dem Namen "Post" und einen Typ hat mit dem Namen "Article" und das mit einer Funktion abhandeln will.
+Manchmal kann es vorkommen, dass es bei einem Objekt nicht ganz klar ist, welchen Typ es nun hat. Zum Beispiel, wenn man einen Typ hat mit dem Namen "Page" und einen Typ hat mit dem Namen "Article" und das mit einer Funktion abhandeln will.
 
 So kann man einem Objekt auch mehrere Typen zuweisen.
 
 ```ts
 
-type Post = {
-    postName: string
+type Page = {
+    pageName: string
     title: string
     content: string
 }
@@ -148,22 +148,22 @@ type Article = {
     tag: string[]
 }
 
-const currentContent: Post|Article = {
+const articleContent: Article = {
     articleName: 'test',
     title: 'test',
     content: 'test',
     tag: ['test']
 }
 
-const anotherContent: Post|Article = {
-    postName: 'test',
+const pageContent: Page = {
+    pageName: 'test',
     title: 'test',
     content: 'test'
 }
 
-const collections: (Post|Article)[] = [
+const collections: (Page|Article)[] = [
     {
-        postName: 'post1',
+        pageName: 'post1',
         title: 'post1',
         content: 'post1'
     },
@@ -173,11 +173,11 @@ const collections: (Post|Article)[] = [
         content: 'article1',
         tag: ['tag1', 'tag2']
     },
-    currentContent,
-    anotherContent
+    articleContent,
+    pageContent
 ]
 
-const getCollectionContents = (_collections: (Post|Article)[]): string[] => {
+const getCollectionContents = (_collections: (Page|Article)[]): string[] => {
     const contents: string[] = []
 
     _collections.forEach(collection => {
@@ -192,9 +192,9 @@ console.log(getCollectionContents(collections))
 
 ### Aufgabe
 
-Erstellt zwei Types mit dem Namen "PostType" und "Pagecomponent". Diese Zwei Types haben folgende Felder:
+Erstellt zwei Types mit dem Namen "Page" und "Pagecomponent". Diese Zwei Types haben folgende Felder:
 
-PostType
+Page
 
 - id
 - title
@@ -211,7 +211,7 @@ Pagecomponent
   - id
   - name
 
-Erstellt nun ein Array aus mehreren PostTypes und Pagecomponents
+Erstellt nun ein Array aus mehreren Pages und Pagecomponents
 
 Und dann erstellt eine Funktion, die aus allen Items des Arrays den "createdBy" User extrahiert und zurückgibt.
 
@@ -221,7 +221,7 @@ Eine Alternative zu Types sind Interfaces. Interfaces haben den Vorteil, dass si
 
 Bei der Schreibweise von Interfaces hat man sich allgemein darauf geeinigt, dass sie mit einem großen I beginnen.
 
-Angenommen man hat einen Typ "IShape" und man will nun zwei Untertypes definieren mit den Namen "ISquareShare" und "IRectangleShape", so kann man das recht einfach mit Interfaces machen.
+Angenommen man hat einen Typ "IShape" und man will nun zwei Untertypes definieren mit den Namen "ISquareShaPe" und "IRectangleShape", so kann man das recht einfach mit Interfaces machen.
 
 ```ts
 interface IShape {
@@ -322,7 +322,7 @@ post.id = 2 // wirft einen Fehler in der Laufzeit, weil id ein readonly Feld ist
 
 ## Generische Types & Interfaces
 
-Wenn man nun Funktionen baut, die mehrere Arten von Inputs verarbeiten sollen, kann man entweder lauter Interfaces bauen, die alle möglichen Input Types abdecken, oder aber man baut generische Types.
+Wenn man nun Funktionen baut, die mehrere Arten von Types verarbeiten sollen, kann man entweder lauter Interfaces bauen, die alle möglichen Types abdecken, oder aber man baut generische Types.
 
 Ein Beispiel wäre bei einem CMS die InputFields. Die können entweder Strings, Numbers, Arrays, Booleans, etc. sein. Diese Types kann man entweder so definieren:
 
@@ -338,9 +338,13 @@ interface InputString {
 interface InputBoolean {
     content: boolean
 }
+
+interface InputBoolean {
+    content: User
+}
 ```
 
-Will man nun eine einzige Funktion bauen, die einen Input überträgt, muss man nun Funktionsüberladungen schreiben, so wie hier:
+Will man nun eine einzige Funktion bauen, die einen Input überträgt, muss man nun sogenannte Funktionsüberladungen schreiben, so wie hier:
 
 ```ts
 function setContent(input: InputNumber, content: number): void;
